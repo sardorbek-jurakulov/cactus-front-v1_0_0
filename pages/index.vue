@@ -1,5 +1,9 @@
 <template>
-  <h1>Cactus project</h1>
+  <Banner />
+
+  <br>
+
+  <TodoList />
 </template>
 
 <script setup>
