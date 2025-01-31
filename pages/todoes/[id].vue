@@ -9,7 +9,12 @@
     <p>Created At: {{ todo?.createdAt }}</p>
 
     <NuxtLink :to="`/todoes/edit/${todo?.id}`" class="btn">Edit</NuxtLink>
-    <button class="btn-success">Mark As Completed</button>
+    <button
+      @click="todoStore.updateMarkCompletedStatus(todoId)"
+      class="btn-success"
+    >
+      Mark As Completed
+    </button>
   </div>
 </template>
 
@@ -17,6 +22,7 @@
   const route = useRoute();
   const todoStore = useTodoStore();
   const { todoes, getTodoById } = storeToRefs(todoStore);
+  const todoId = Number(route?.params?.id);
 
   const todo = computed(
     () => {

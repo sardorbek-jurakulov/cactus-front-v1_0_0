@@ -68,13 +68,13 @@ export const useTodoStore = defineStore('todo', {
       this.todoes = this.todoes.filter((todo) => todo.id !== id);
     },
 
-    markAsCompleted(id: number) {
+    updateMarkCompletedStatus(id: number) {
       const index = this.todoes.findIndex(
         (todo) => todo.id === id
       );
 
       if (index !== -1) {
-        this.todoes[index].isCompleted = true;
+        this.todoes[index].isCompleted = !this.todoes[index].isCompleted;
       }
     },
   }
