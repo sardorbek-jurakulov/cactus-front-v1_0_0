@@ -10,5 +10,9 @@ export default defineNuxtConfig({
       pathPrefix: false,
     }
   ],
-  css: ['~/assets/styles/main.css']
+  css: ['~/assets/styles/main.css'],
+  modules: ['@pinia/nuxt'],
+  pinia: {
+    storesDirs: ['./store/**'],
+  },
 })

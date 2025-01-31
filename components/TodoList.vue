@@ -1,14 +1,24 @@
 <template>
   <ul class="todo-list">
-    <li class="todo-list__item">
-      <NuxtLink class="todo-list__link" :to="`/todoes/${1}`">{{"Title 1"}}</NuxtLink>
-      <span>{{ 'Completed' }}</span>
+    <li class="todo-list__item" v-for="(todo, index) in todoes" :key="index">
+      <NuxtLink class="todo-list__link" :to="`/todoes/${todo.id}`">{{ todo.title }}</NuxtLink>
+      <span>{{ todo.isCompleted ? 'Completed' : 'Not-Completed' }}</span>
     </li>
   </ul>
 </template>
 
 <script setup lang="ts">
-
+  defineProps({
+    todoes: {
+      type: Array as PropType <
+        Array <{
+          id:number,
+          title:string,
+          isCompleted: boolean,
+        }>
+      >
+    }
+  });
 </script>
 
 <style scoped>

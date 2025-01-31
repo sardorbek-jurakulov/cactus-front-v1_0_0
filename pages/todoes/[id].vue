@@ -1,19 +1,29 @@
 <template>
   <div>
-    <h2>Title</h2>
-    <p>Description</p>
+    <h2>{{ todo?.title }}</h2>
+    <p>{{ todo?.description }}</p>
 
     <hr class="my-5">
 
-    <p>Completed: Yes</p>
-    <p>Created At: 12:00</p>
+    <p>Completed: {{ todo?.isCompleted ? 'Yes' : 'No' }}</p>
+    <p>Created At: {{ todo?.createdAt }}</p>
 
-    <NuxtLink :to="`/todoes/edit/{$1}`" class="btn">Edit</NuxtLink>
+    <NuxtLink :to="`/todoes/edit/${todo?.id}`" class="btn">Edit</NuxtLink>
     <button class="btn-success">Mark As Completed</button>
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+  const route = useRoute();
+  const todoStore = useTodoStore();
+  const { todoes, getTodoById } = storeToRefs(todoStore);
+
+  const todo = computed(
+    () => {
+      return todoes.value.find(t => t.id === Number(route?.params?.id))
+    }
+  );
+</script>
 
 <style>
   .btn {
