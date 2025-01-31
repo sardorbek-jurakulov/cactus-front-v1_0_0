@@ -20,7 +20,7 @@
   .site-nav {
     background-color: #333;
     color: #fff;
-    padding: 10rem;
+    padding: 1rem;
   }
 
   .site-nav__list {
