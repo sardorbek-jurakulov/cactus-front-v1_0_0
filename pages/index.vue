@@ -2,8 +2,6 @@
   <Banner />
 
   <br>
-
-  <TodoList />
 </template>
 
 <script setup>
