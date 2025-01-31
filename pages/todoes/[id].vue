@@ -11,9 +11,11 @@
     <NuxtLink :to="`/todoes/edit/${todo?.id}`" class="btn">Edit</NuxtLink>
     <button
       @click="todoStore.updateMarkCompletedStatus(todoId)"
-      class="btn-success"
+      :class="
+        todo?.isCompleted ? 'btn-danger' : 'btn-success'
+      "
     >
-      Mark As Completed
+      {{ todo?.isCompleted ? 'Mark As Not Completed' : 'Mark As Completed' }}
     </button>
   </div>
 </template>
