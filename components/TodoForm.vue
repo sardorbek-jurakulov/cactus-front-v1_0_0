@@ -1,21 +1,67 @@
 <template>
-  <form class="todo-form">
+  <form @submit.prevent="handleSubmit()" class="todo-form">
     <div class="todo-form__insert-elements-wrapper">
       <label class="todo-form__label" for="title">Title</label>
-      <input class="todo-form__input" type="text" name="title" id="title" required>
+      <input
+        class="todo-form__input"
+        type="text"
+        name="title"
+        id="title"
+        required
+        v-model="form.title"
+      >
     </div>
 
     <div class="todo-form__insert-elements-wrapper">
       <label class="todo-form__label" for="description">Description</label>
-      <textarea class="todo-form__textarea" type="text" name="description" id="description" required>
+      <textarea
+        class="todo-form__textarea"
+        type="text"
+        name="description"
+        id="description"
+        required
+        v-model="form.description"
+      >
       </textarea>
     </div>
 
-    <button type="submit" class="btn-success">Add todo</button>
+    <button type="submit" class="btn-success">{{ isEdit ? "Update" : "Add" }} todo</button>
   </form>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+  const router = useRouter();
+  const todoStore = useTodoStore();
+
+  const props  = defineProps({
+    todo: {
+      type: Object as PropType<{
+        id: number;
+        title: string;
+        description: string;
+        isCompleted: boolean;
+        createdAt: string;
+      }>,
+      required: true,
+    },
+    isEdit: {
+      type: Boolean as PropType<boolean>,
+      required: true,
+    },
+  });
+
+  const form = ref({...props.todo});
+
+  const handleSubmit = () => {
+    if (props.isEdit) {
+      todoStore.updateTodo(form.value);
+    } else {
+      form.value.id = Date.now();
+      todoStore.addTodo(form.value);
+    }
+    router.push(`/todoes/${form.value.id}`);
+  };
+</script>
 
 <style scoped>
   .todo-form {

@@ -1,3 +1,5 @@
+import SecureLS from "secure-ls";
+
 export const useTodoStore = defineStore('todo', {
   state: () => ({
     todoes: [
@@ -77,5 +79,22 @@ export const useTodoStore = defineStore('todo', {
         this.todoes[index].isCompleted = !this.todoes[index].isCompleted;
       }
     },
+  },
+
+  persist: {
+    storage: {
+      getItem: (key) => {
+        return new SecureLS({
+          encodingType: 'des',
+          encriptionSecret: 'One23456',
+        }).get(key);
+      },
+      setItem: (key, value) => {
+        return new SecureLS({
+          encodingType: 'des',
+          encriptionSecret: 'One23456',
+        }).set(key, value);
+      }
+    }
   }
 });
