@@ -3,27 +3,27 @@ import SecureLS from "secure-ls";
 export const useTodoStore = defineStore('todo', {
   state: () => ({
     todoes: [
-      {
-        id: 1,
-        title: 'Task 1',
-        description: 'First Task',
-        isCompleted: false,
-        createdAt: new Date().toISOString(),
-      },
-      {
-        id: 2,
-        title: 'Task 2',
-        description: 'Second Task',
-        isCompleted: false,
-        createdAt: new Date().toISOString(),
-      },
-      {
-        id: 3,
-        title: 'Task 3',
-        description: 'Third Task',
-        isCompleted: true,
-        createdAt: new Date().toISOString(),
-      },
+      // {
+      //   id: 1,
+      //   title: 'Task 1',
+      //   description: 'First Task',
+      //   isCompleted: false,
+      //   createdAt: new Date().toISOString(),
+      // },
+      // {
+      //   id: 2,
+      //   title: 'Task 2',
+      //   description: 'Second Task',
+      //   isCompleted: false,
+      //   createdAt: new Date().toISOString(),
+      // },
+      // {
+      //   id: 3,
+      //   title: 'Task 3',
+      //   description: 'Third Task',
+      //   isCompleted: true,
+      //   createdAt: new Date().toISOString(),
+      // },
     ] as Array<{
       id: number,
       title: string,

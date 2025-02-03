@@ -3,7 +3,7 @@
 
   <br>
 
-  <TodoList :todoes="todoes"/>
+  <TodoList :todoes="recentTodoes"/>
 </template>
 
 <script setup>
@@ -11,7 +11,7 @@ const todoStore = useTodoStore();
 const { todoes } = storeToRefs(todoStore);
 
 const recentTodoes = computed(() => {
-  return todoes.value.slice(-2).reverse()
+  return todoes.value.slice(-3).reverse()
 });
 </script>
 

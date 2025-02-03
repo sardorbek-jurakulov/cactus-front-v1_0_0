@@ -61,6 +61,10 @@
     }
     router.push(`/todoes/${form.value.id}`);
   };
+
+  watch(() => props.todo, (newTodo) => {
+    form.value = { ...props.todo };
+  })
 </script>
 
 <style scoped>
