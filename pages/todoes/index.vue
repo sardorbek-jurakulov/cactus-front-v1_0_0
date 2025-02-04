@@ -18,11 +18,11 @@
       { name: 'lang', content: 'en-US' },
       { name: 'publisher', content: 'GSBE' },
     ],
-    script: [
-      {
-        innerHTML: 'console.log("All todoes page")'
-      }
-    ]
+    // script: [
+    //   {
+    //     innerHTML: 'console.log("All todoes page")'
+    //   }
+    // ]
   })
 </script>
 
