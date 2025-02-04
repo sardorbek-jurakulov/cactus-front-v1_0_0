@@ -34,7 +34,7 @@ useSeoMeta({
 
   const route = useRoute();
   const todoStore = useTodoStore();
-  const { todoes, getTodoById } = storeToRefs(todoStore);
+  const { todoes } = storeToRefs(todoStore);
   const todoId = Number(route?.params?.id);
 
   const todo = computed(

@@ -24,6 +24,10 @@
     //   }
     // ]
   })
+
+  onMounted(async() => {
+    await todoStore.fetchTodoes();
+  });
 </script>
 
 <style scoped>

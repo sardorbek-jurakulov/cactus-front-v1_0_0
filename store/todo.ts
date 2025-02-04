@@ -33,16 +33,30 @@ export const useTodoStore = defineStore('todo', {
     }>,
   }),
 
-  getters: {
-    getTodoById: (state) => {
-      return (id:number) => {
-        return state.todoes.find((todo) => todo.id === id)
-      }
-    },
-  },
+  // getters: {
+  //   getTodoById: (state) => {
+  //     return (id:number) => {
+  //       return state.todoes.find((todo) => todo.id === id)
+  //     }
+  //   },
+  // },
 
   actions: {
-    addTodo(
+    async fetchTodoes() {
+      try {
+        const { data, error } = await useFetch('/api/todoes');
+        if (error.value) {
+          throw new Error('Failed to fetch todoes');
+        }
+        if (data.value) {
+          this.todoes = data?.value.data;
+        }
+      } catch (error) {
+        console.error('Failed to fetch todoes', error);
+      }
+    },
+
+    async addTodo(
       todo:{
         id: number,
         title: string,
@@ -50,8 +64,19 @@ export const useTodoStore = defineStore('todo', {
         isCompleted: boolean,
         createdAt: string,
     }) {
-      this.todoes.push(todo);
+      try {
+        const { data, error } = await useFetch('/api/todoes');
+        if (error.value) {
+          throw new Error('Failed to fetch todoes');
+        }
+        if (data.value) {
+          this.todoes = data?.value.data;
+        }
+      } catch (error) {
+        console.error('Failed to fetch todoes', error);
+      }
     },
+
     updateTodo(
       updateTodo:{
         id: number,
@@ -60,9 +85,16 @@ export const useTodoStore = defineStore('todo', {
         isCompleted: boolean,
         createdAt: string,
     }) {
-      const index = this.todoes.findIndex((todo) => todo.id === updateTodo.id);
-      if (index !== -1) {
-        this.todoes[index] = updateTodo;
+      try {
+        const { data, error } = await useFetch('/api/todoes');
+        if (error.value) {
+          throw new Error('Failed to fetch todoes');
+        }
+        if (data.value) {
+          this.todoes = data?.value.data;
+        }
+      } catch (error) {
+        console.log('Failed to fetch todoes', error);
       }
     },
 
@@ -81,20 +113,20 @@ export const useTodoStore = defineStore('todo', {
     },
   },
 
-  persist: {
-    storage: {
-      getItem: (key) => {
-        return new SecureLS({
-          encodingType: 'des',
-          encriptionSecret: 'One23456',
-        }).get(key);
-      },
-      setItem: (key, value) => {
-        return new SecureLS({
-          encodingType: 'des',
-          encriptionSecret: 'One23456',
-        }).set(key, value);
-      }
-    }
-  }
+  // persist: {
+  //   storage: {
+  //     getItem: (key) => {
+  //       return new SecureLS({
+  //         encodingType: 'des',
+  //         encriptionSecret: 'One23456',
+  //       }).get(key);
+  //     },
+  //     setItem: (key, value) => {
+  //       return new SecureLS({
+  //         encodingType: 'des',
+  //         encriptionSecret: 'One23456',
+  //       }).set(key, value);
+  //     }
+  //   }
+  // }
 });
