@@ -21,6 +21,11 @@
 </template>
 
 <script setup lang="ts">
+useSeoMeta({
+  title: 'Nuxt - Todo details',
+  description: 'Todo details page'
+});
+
   const route = useRoute();
   const todoStore = useTodoStore();
   const { todoes, getTodoById } = storeToRefs(todoStore);
