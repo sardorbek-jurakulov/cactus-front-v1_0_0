@@ -4,6 +4,19 @@ import type { NuxtPage } from 'nuxt/schema';
 export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
   devtools: { enabled: false },
+  app: {
+    head: {
+      title: 'Nuxt mastering',
+      meta: [
+        { charset: 'utf-8' },
+        { name: 'viewport', content: 'width=device-width, initial-scale=1'},
+        { hid: 'description', name: 'description', content: 'My Nuxt App' },
+      ],
+      link: [
+        { rel:'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      ],
+    }
+  },
   components: [
     {
       path: '~/components',
