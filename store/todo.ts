@@ -1,4 +1,4 @@
-import SecureLS from "secure-ls";
+// import SecureLS from "secure-ls";
 
 export const useTodoStore = defineStore('todo', {
   state: () => ({
@@ -57,7 +57,7 @@ export const useTodoStore = defineStore('todo', {
     },
 
     async addTodo(
-      todo:{
+      todo: {
         id: number,
         title: string,
         description: string,
@@ -65,20 +65,28 @@ export const useTodoStore = defineStore('todo', {
         createdAt: string,
     }) {
       try {
-        const { data, error } = await useFetch('/api/todoes');
+        const { data, error } = await useFetch('/api/todoes', {
+          method: 'POST',
+          body: todo,
+        });
+
         if (error.value) {
-          throw new Error('Failed to fetch todoes');
+          throw new Error('Failed to add todoes');
         }
+        // if (data.value) {
+        //   this.todoes = data?.value.data;
+        // }
         if (data.value) {
-          this.todoes = data?.value.data;
+          this.todoes.push(data?.value.data);
         }
+        this.todoes.push(data?.value.data);
       } catch (error) {
-        console.error('Failed to fetch todoes', error);
+        console.error('Failed to add todoes', error);
       }
     },
 
-    updateTodo(
-      updateTodo:{
+    async updateTodo(
+      updateTodo: {
         id: number,
         title: string,
         description: string,
@@ -86,15 +94,23 @@ export const useTodoStore = defineStore('todo', {
         createdAt: string,
     }) {
       try {
-        const { data, error } = await useFetch('/api/todoes');
+        const { data, error } = await useFetch('/api/todoes', {
+          method: 'PUT',
+          body: updateTodo,
+        });
+
         if (error.value) {
-          throw new Error('Failed to fetch todoes');
+          throw new Error('Failed to update todoes');
         }
-        if (data.value) {
-          this.todoes = data?.value.data;
-        }
+        // if (data.value) {
+        //   this.todoes = data?.value.data;
+        // }
+        // if (data.value) {
+        //   this.todoes.push(data?.value.data);
+        // }
+        this.todoes.push(data?.value.data);
       } catch (error) {
-        console.log('Failed to fetch todoes', error);
+        console.error('Failed to update todoes', error);
       }
     },
 

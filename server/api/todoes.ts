@@ -23,7 +23,8 @@ export default defineEventHandler (async (event) => {
     const newTodo = await readBody(event);
     todoes.push(newTodo);
     return {
-      value: newTodo,
+      success: true,
+      data: newTodo,
       statusCode: 201,
     }
   }
