@@ -108,20 +108,49 @@ export const useTodoStore = defineStore('todo', {
         // if (data.value) {
         //   this.todoes.push(data?.value.data);
         // }
-        this.todoes.push(data?.value.data);
+        // this.todoes.push(data?.value.data);
       } catch (error) {
         console.error('Failed to update todoes', error);
       }
     },
 
-    deleteTodo(id: number) {
-      this.todoes = this.todoes.filter((todo) => todo.id !== id);
+    async deleteTodo(id: number) {
+      try {
+        const { data, error } = await useFetch('/api/todoes', {
+          method: 'DELETE',
+          body: { id },
+        });
+
+        if (error.value) {
+          throw new Error('Failed to delete todoes');
+        }
+      } catch (error) {
+        console.error('Failed to delete todoes', error);
+      }
     },
 
-    updateMarkCompletedStatus(id: number) {
+    async updateMarkCompletedStatus(id: number) {
       const index = this.todoes.findIndex(
         (todo) => todo.id === id
       );
+
+      if (index === -1) {
+        return 'Error';
+      }
+      const updateTodo = { ...this.todoes[index], isCompleted:!this.todoes[index].isCompleted };
+
+      try {
+        const { data, error } = await useFetch('/api/todoes', {
+          method: 'PUT',
+          body: updateTodo,
+        });
+
+        if (error.value) {
+          throw new Error('Failed to update todoes');
+        }
+      } catch (error) {
+        console.error('Failed to update todoes', error);
+      }
 
       if (index !== -1) {
         this.todoes[index].isCompleted = !this.todoes[index].isCompleted;

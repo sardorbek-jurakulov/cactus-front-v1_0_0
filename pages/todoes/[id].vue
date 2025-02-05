@@ -17,6 +17,12 @@
     >
       {{ todo?.isCompleted ? 'Mark As Not Completed' : 'Mark As Completed' }}
     </button>
+    <button
+      @click="handleDelete"
+      class="btn-danger"
+    >
+      Delete
+    </button>
   </div>
 </template>
 
@@ -33,6 +39,7 @@ useSeoMeta({
 });
 
   const route = useRoute();
+  const router = useRouter();
   const todoStore = useTodoStore();
   const { todoes } = storeToRefs(todoStore);
   const todoId = Number(route?.params?.id);
@@ -42,6 +49,11 @@ useSeoMeta({
       return todoes.value.find(t => t.id === Number(route?.params?.id))
     }
   );
+
+  const handleDelete = async () => {
+    todoStore.deleteTodo(todoId);
+    router.push(`/todoes`);
+  };
 </script>
 
 <style>
